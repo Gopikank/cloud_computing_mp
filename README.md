@@ -133,5 +133,3 @@ Access: ALLOWED
 - Scheduled cloud automation
 - Managed cloud hosting
 
-## Limitation
-The browser registration page includes a demo role selector for easy classroom testing. In a real system, privileged roles should be assigned by an administrator using trusted server-side logic/custom claims.
