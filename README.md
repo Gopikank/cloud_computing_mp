@@ -112,16 +112,35 @@ After release, login as Examiner and open the paper.
 ### Integrity
 Use **Verify Hash** after release. The application downloads the authorized file and calculates SHA-256 again. A match indicates the stored file is unchanged.
 
-## Sample result
-```text
-Before exam:
-Status: SCHEDULED
-Access: LOCKED
 
-After exam time:
-Status: RELEASED
-Access: ALLOWED
+## Sample input and output
+
+### Sample input
+
+```text
+Role: setter
+File: sample-question-paper.txt
+Content: What is cloud computing?
+Title: Cloud Computing Midterm
+Exam start: 10:00 AM
+Public release: 1:00 PM
 ```
+
+### Expected output
+
+| User/time | Result |
+|---|---|
+| Setter after upload | `Locked — setters cannot access submitted content.` |
+| Admin at 9:57 AM | Paper remains locked |
+| Admin at 9:58 AM | Open/download and verification are allowed |
+| Student at 9:59 AM | Paper remains locked |
+| Student at 10:00 AM | Open/download and verification are allowed |
+| Public at 1:00 PM | Paper is available |
+
+Successful integrity checking displays:
+
+```text
+Integrity verified: SHA-256 matches.
 
 ## Cloud computing concepts demonstrated
 - Cloud storage
