@@ -1,0 +1,28 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn(){return request.auth != null;}
+    function role(){return signedIn() && exists(/databases/$(database)/documents/users/$(request.auth.uid)) ? get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role : "";}
+    function admin(){return role()=="admin";}
+    function setter(){return role()=="setter";}
+    function examiner(){return role()=="examiner";}
+
+    match /users/{uid} {
+      allow create: if signedIn() && request.auth.uid==uid;
+      allow read: if signedIn() && (request.auth.uid==uid || admin());
+      allow update: if signedIn() && (request.auth.uid==uid || admin());
+    }
+
+    match /papers/{id} {
+      allow read: if signedIn() && (admin() || resource.data.creatorId==request.auth.uid || (resource.data.status=="RELEASED" && examiner()));
+      allow create: if signedIn() && (setter() || admin()) && request.resource.data.creatorId==request.auth.uid;
+      allow update: if admin();
+      allow delete: if admin();
+    }
+
+    match /auditLogs/{id} {
+      allow read: if admin() || (signedIn() && resource.data.userId==request.auth.uid);
+      allow create: if signedIn() && request.resource.data.userId==request.auth.uid;
+    }
+  }
+}

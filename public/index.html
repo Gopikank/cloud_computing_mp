@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cloud Exam Paper Vault</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div>
+    <h1>☁️ Cloud Exam Paper Vault</h1>
+    <p>Cloud storage • role-based access • scheduled release</p>
+  </div>
+  <div id="userBox" class="user-box hidden">
+    <span id="userEmail"></span>
+    <span id="userRole" class="badge"></span>
+    <button id="logoutBtn" class="secondary">Logout</button>
+  </div>
+</header>
+
+<main>
+<section id="authSection" class="card auth-grid">
+  <div>
+    <h2>Login</h2>
+    <input id="loginEmail" type="email" placeholder="Email">
+    <input id="loginPassword" type="password" placeholder="Password">
+    <button id="loginBtn">Login</button>
+  </div>
+  <div>
+    <h2>Create Demo Account</h2>
+    <input id="regEmail" type="email" placeholder="Email">
+    <input id="regPassword" type="password" placeholder="Password">
+    <select id="regRole">
+      <option value="setter">Question Setter</option>
+      <option value="examiner">Examiner</option>
+      <option value="admin">Admin (demo)</option>
+    </select>
+    <button id="registerBtn">Register</button>
+    <small>For real deployment, privileged roles should be assigned by an administrator.</small>
+  </div>
+</section>
+
+<section id="appSection" class="hidden">
+  <div class="stats">
+    <div class="stat"><strong id="totalCount">0</strong><span>Total Papers</span></div>
+    <div class="stat"><strong id="lockedCount">0</strong><span>Locked</span></div>
+    <div class="stat"><strong id="releasedCount">0</strong><span>Released</span></div>
+  </div>
+
+  <section id="setterPanel" class="card hidden">
+    <h2>Register Question Paper</h2>
+    <div class="form-grid">
+      <label>Title<input id="paperTitle" placeholder="Computer Science Examination 2026"></label>
+      <label>Exam Date & Time<input id="examTime" type="datetime-local"></label>
+      <label class="wide">Question Paper File<input id="paperFile" type="file" accept=".pdf,.txt"></label>
+    </div>
+    <button id="uploadBtn">☁️ Upload to Cloud</button>
+    <p class="hint">The file is stored in Firebase Cloud Storage. Its SHA-256 fingerprint is stored in Firestore.</p>
+  </section>
+
+  <section class="card">
+    <div class="section-head">
+      <h2>Question Papers</h2>
+      <button id="releaseCheckBtn" class="secondary">Run Release Check</button>
+    </div>
+    <div id="papers"></div>
+  </section>
+
+  <section class="card">
+    <h2>Audit Log</h2>
+    <div id="logs"></div>
+  </section>
+</section>
+
+<div id="message" class="message"></div>
+</main>
+<script type="module" src="app.js"></script>
+</body>
+</html>
