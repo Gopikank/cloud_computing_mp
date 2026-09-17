@@ -1,6 +1,5 @@
 # Cloud-Based Examination Question Paper Vault
 
-A college microproject demonstrating cloud computing for protecting sensitive examination question papers.
 
 ## Core idea
 Question papers are stored in Firebase Cloud Storage, metadata is stored in Cloud Firestore, users authenticate with Firebase Authentication, access is role-based, papers require admin approval, and papers can be released only after the configured exam time. Audit logs record important actions. SHA-256 is used as an integrity fingerprint.
