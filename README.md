@@ -18,7 +18,7 @@ Question papers are stored in Firebase Cloud Storage, metadata is stored in Clou
 This is an educational prototype, not a production examination system. Firebase provides encryption in transit and at rest, but this project does not implement custom AES key management. Do not upload real confidential examination papers.
 
 ## Project structure
-```text
+
 cloud-exam-paper-vault/
 ├── public/
 │   ├── index.html
@@ -33,7 +33,6 @@ cloud-exam-paper-vault/
 ├── firebase.json
 ├── .firebaserc.example
 └── README.md
-```
 
 ## Setup
 
@@ -52,35 +51,33 @@ Open `public/app.js` and replace the values in `firebaseConfig` with your Fireba
 Do not put a service-account JSON file in this project or GitHub.
 
 ### 3. Install Firebase CLI
-```cmd
+
 npm install -g firebase-tools
 firebase login
-```
+
 
 ### 4. Connect this folder
 From the project folder:
-```cmd
+
 firebase use --add
-```
-Choose your Firebase project.
+
 
 ### 5. Deploy rules
-```cmd
+
 firebase deploy --only firestore:rules,storage
-```
+
 
 ### 6. Deploy hosting
-```cmd
+
 firebase deploy --only hosting
-```
 
 ### 7. Optional scheduled Cloud Function
-```cmd
+
 cd functions
 npm install
 cd ..
 firebase deploy --only functions
-```
+
 
 `releaseDuePapers` runs every 5 minutes and changes approved papers from `SCHEDULED` to `RELEASED` when their exam time arrives.
 
@@ -117,14 +114,14 @@ Use **Verify Hash** after release. The application downloads the authorized file
 
 ### Sample input
 
-```text
+
 Role: setter
 File: sample-question-paper.txt
 Content: What is cloud computing?
 Title: Cloud Computing Midterm
 Exam start: 10:00 AM
 Public release: 1:00 PM
-```
+
 
 ### Expected output
 
@@ -139,7 +136,7 @@ Public release: 1:00 PM
 
 Successful integrity checking displays:
 
-```text
+
 Integrity verified: SHA-256 matches.
 
 ## Cloud computing concepts demonstrated
